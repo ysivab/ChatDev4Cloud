@@ -210,6 +210,8 @@ class Phase(ABC):
             question = """Conclude the programming language being discussed for software development, in the format: "*" where '*' represents a programming language." """
         elif phase_name == "EnvironmentDoc":
             question = """According to the codes and file format listed above, write a requirements.txt file to specify the dependencies or packages required for the project to run properly." """
+        # elif phase_name == "Dockerize":
+        #     question = """Create a Dockerfile with all libraries, and source code."""
         else:
             raise ValueError(f"Reflection of phase {phase_name}: Not Assigned.")
 
@@ -358,6 +360,22 @@ class Coding(Phase):
             "**[Software Info]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
         return chat_env
 
+class Dockerize(Phase):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+    
+    def update_phase_env(self, chat_env):
+        self.phase_env = {"task": chat_env.env_dict['task_prompt'],
+                               "codes": chat_env.get_codes()}
+    
+    def update_chat_env(self, chat_env) -> ChatEnv:
+        chat_env.update_dockerfile(self.seminar_conclusion)
+        if len(chat_env.codes.codebooks.keys()) == 0:
+            raise ValueError("No Valid Codes.")
+        chat_env.rewrite_dockerfile("Finish Coding")
+        log_and_print_online(
+            "**[Docker Info]**:\n\n {}".format(get_info(chat_env.env_dict['directory'], self.log_filepath)))
+        return chat_env
 
 class ArtDesign(Phase):
     def __init__(self, **kwargs):

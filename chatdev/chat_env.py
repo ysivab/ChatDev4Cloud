@@ -10,6 +10,7 @@ import openai
 import requests
 
 from chatdev.codes import Codes
+from chatdev.containers import Containers
 from chatdev.documents import Documents
 from chatdev.roster import Roster
 from chatdev.utils import log_and_print_online
@@ -39,6 +40,7 @@ class ChatEnv:
         self.config = chat_env_config
         self.roster: Roster = Roster()
         self.codes: Codes = Codes()
+        self.containers: Containers = Containers()
         self.proposed_images: Dict[str, str] = {}
         self.incorporated_images: Dict[str, str] = {}
         self.requirements: Documents = Documents()
@@ -66,6 +68,7 @@ class ChatEnv:
         assert len(self.env_dict['directory']) == 0
         self.env_dict['directory'] = directory
         self.codes.directory = directory
+        self.containers.directory = directory
         self.requirements.directory = directory
         self.manuals.directory = directory
 
@@ -147,6 +150,14 @@ class ChatEnv:
 
     def rewrite_codes(self, phase_info=None) -> None:
         self.codes._rewrite_codes(self.config.git_management, phase_info)
+
+    def update_dockerfile(self, generated_content):
+        self.containers._update_codes(generated_content)
+        # self.containers._update_dockerfile(generated_content, parse=False, predifined_filename="Dockerfile")
+
+    def rewrite_dockerfile(self, phase_info=None) -> None:
+        self.containers._rewrite_codes(self.config.git_management, phase_info)
+        # self.codes._rewrite_dockerfile(self.config.git_management, phase_info)
 
     def get_codes(self) -> str:
         return self.codes._get_codes()

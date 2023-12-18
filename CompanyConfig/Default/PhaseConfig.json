@@ -273,5 +273,16 @@
       "- Resources (high-level explanation of core concepts)",
       "```"
     ]
+  },
+  "Dockerize": {
+    "assistant_role_name": "Cloud Engineer",
+    "user_role_name": "Chief Technology Officer",
+    "phase_prompt": [
+      "Our developed source codes are listed below: ",
+      "Infrastructure as Code: Bash",
+      "Source Codes:",
+      "\"{codes}\"",
+      "As the {assistant_role}, by using your knowledge in Docker, you should write a Dockerfile file which encapsulates the software to run as a docker container, including introducing main functions of the software, any libraries or packages required, and how to start the application in container"
+    ]
   }
 }

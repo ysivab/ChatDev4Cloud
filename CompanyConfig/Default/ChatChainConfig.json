@@ -70,6 +70,12 @@
       ]
     },
     {
+      "phase": "Dockerize",
+      "phaseType": "SimplePhase",
+      "max_turn_step": 1,
+      "need_reflect": "False"
+    },
+    {
       "phase": "EnvironmentDoc",
       "phaseType": "SimplePhase",
       "max_turn_step": 1,
@@ -89,13 +95,14 @@
     "Chief Product Officer",
     "Chief Technology Officer",
     "Programmer",
+    "Cloud Engineer",
     "Code Reviewer",
     "Software Test Engineer",
     "Chief Creative Officer"
   ],
   "clear_structure": "True",
-  "brainstorming": "False",
-  "gui_design": "True",
+  "brainstorming": "True",
+  "gui_design": "False",
   "git_management": "False",
   "self_improve": "False",
   "incremental_develop": "False"

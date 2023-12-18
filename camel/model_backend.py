@@ -63,6 +63,7 @@ class OpenAIModel(ModelBackend):
             "gpt-4": 8192,
             "gpt-4-0613": 8192,
             "gpt-4-32k": 32768,
+            "gpt-4-1106-preview": 100000,
         }
         num_max_token = num_max_token_map[self.model_type.value]
         num_max_completion_tokens = num_max_token - num_prompt_tokens
@@ -119,7 +120,7 @@ class ModelFactory:
         default_model_type = ModelType.GPT_3_5_TURBO
 
         if model_type in {
-            ModelType.GPT_3_5_TURBO, ModelType.GPT_4, ModelType.GPT_4_32k,
+            ModelType.GPT_3_5_TURBO, ModelType.GPT_4, ModelType.GPT_4_32k, ModelType.GPT_4_TURBO,
             None
         }:
             model_class = OpenAIModel
